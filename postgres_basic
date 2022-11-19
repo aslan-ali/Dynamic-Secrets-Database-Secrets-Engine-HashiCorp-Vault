@@ -1,0 +1,9 @@
+> CREATE DATABASE test_db
+WITH owner = postgres
+ENCODING = 'UTF8'
+TABLESPACE = pg_default;
+> \l
+
+> \connect test_db
+
+> create schema testms;
