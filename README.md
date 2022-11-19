@@ -8,5 +8,6 @@ first of all we configure Vault on Amazon Linux, configuration file here:
 
 ###### vault_on_amazon_linux
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/993bcee4-4f03-4eb5-8a65-197e5cd7c4bd/Untitled.png)
 
+
+![assets](https://user-images.githubusercontent.com/73755890/202867387-342f0026-7ffc-4346-abc5-56814a5d2f2f.png)
