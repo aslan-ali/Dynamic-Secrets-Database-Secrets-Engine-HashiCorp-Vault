@@ -78,8 +78,6 @@ Configuration file here:
     -U v-root-develope-N2QYxWSbvc5ZFduq6JyY-1615063136 \
     -W
 Password: ZOhXBsoZcb6uz5ACFge-
-psql (13.2)
-Type "help" for help.
 
 
 ### For Vault list ID
