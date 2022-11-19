@@ -84,10 +84,6 @@ Password: ZOhXBsoZcb6uz5ACFge-
 
 > vault list sys/leases/lookup/psql/creds/developer-role
 
-> Keys
-> ----
-> vmzoyrTu9PAPKWfTu5qGPqdc
-
 ### Renew lease
 > vault lease renew psql/creds/developer-role/vmzoyrTu9PAPKWfTu5qGPqdc
 
