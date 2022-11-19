@@ -36,11 +36,11 @@ Configuration file here:
 ### We can check it with:
 > vault read psql/config/testDB
 
----                                   -----
-allowed_roles                         [developer-role]
-connection_details                    map[connection_url:postgresql://{{username}}:{{password}}@database-1.xxxxxxxxxxxxxxx:5432/test_db?sslmode=disable username:postgres]
-plugin_name                           postgresql-database-plugin
-root_credentials_rotate_statements    []
+`---                                   -----`
+`allowed_roles                         [developer-role]`
+`connection_details                    map[connection_url:postgresql://{{username}}:{{password}}@database-1.xxxxxxxxxxxxxxx:5432/test_db?sslmode=disable username:postgres]`
+`plugin_name                           postgresql-database-plugin`
+`root_credentials_rotate_statements    []`
 
 ### Now we create a role for this database
 
@@ -81,4 +81,38 @@ Password: ZOhXBsoZcb6uz5ACFge-
 psql (13.2)
 Type "help" for help.
 
-postgres=>
+
+### For Vault list ID
+
+> vault list sys/leases/lookup/psql/creds/developer-role
+
+> Keys
+> ----
+> vmzoyrTu9PAPKWfTu5qGPqdc
+
+### Renew lease
+> vault lease renew psql/creds/developer-role/vmzoyrTu9PAPKWfTu5qGPqdc
+
+### Revoke ID
+
+> vault lease revoke psql/creds/developer-role/vmzoyrTu9PAPKWfTu5qGPqdc
+
+### Revoke All IDs
+
+> vault lease revoke -prefix psql/creds/developer-role
+
+### Retrive username and password via API
+
+> curl --header "X-Vault-Token: xxxxxxxxxxxxxxxxxxxxx" \
+      --request GET \
+      http://xxxxxxxxxxxxxxxx:8200/v1/psql/creds/developer-role | jq
+      
+      
+![Untitled](https://user-images.githubusercontent.com/73755890/202868291-b31e8027-ed87-4cb2-a363-7494f1d9adf4.png)
+
+    [Link to PostgreSQL Database Secret Engine Documentation](https://developer.hashicorp.com/vault/docs/secrets/databases/postgresql)
+    [Link to PosgreSQL Documentation](https://www.postgresql.org/docs/current/index.html)
+
+
+##### THAT'S ALL. THANKS!
+      
