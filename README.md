@@ -61,13 +61,13 @@ root_credentials_rotate_statements    []
  
  > vault read psql/creds/developer-role
 
-Key                Value
----                -----
-lease_id           psql/creds/developer-role/fyF5xDomnKeCHNZNQgStwBKD
-lease_duration     1h
-lease_renewable    true
-password           A1a-ckirtymYaXACpIHn
-username           v-token-readonly-6iRIcGv8tLpu816oblPY-1556567086
+`Key                Value`
+`---                -----`
+`lease_id           psql/creds/developer-role/fyF5xDomnKeCHNZNQgStwBKD`
+`lease_duration     1h`
+`lease_renewable    true`
+`password           A1a-ckirtymYaXACpIHn`
+`username           v-token-readonly-6iRIcGv8tLpu816oblPY-1556567086`
 
  
  
