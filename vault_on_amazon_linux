@@ -1,0 +1,81 @@
+cd /opt/ && sudo curl -o vault.zip  https://releases.hashicorp.com/vault/1.1.2/vault_1.1.2_linux_amd64.zip
+sudo unzip vault.zip
+sudo mv vault /usr/bin/
+sudo useradd --system --home /etc/vault.d --shell /bin/false vault
+
+#CREATE VAULT SYSTEMFILE
+
+sudo vi /etc/systemd/system/vault.service
+
+[Unit]
+Description="HashiCorp Vault Service"
+Requires=network-online.target
+After=network-online.target
+ConditionFileNotEmpty=/etc/vault.d/vault.hcl
+
+[Service]
+User=vault
+Group=vault
+ProtectSystem=full
+ProtectHome=read-only
+PrivateTmp=yes
+PrivateDevices=yes
+SecureBits=keep-caps
+AmbientCapabilities=CAP_IPC_LOCK
+Capabilities=CAP_IPC_LOCK+ep
+CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
+NoNewPrivileges=yes
+ExecStart=/usr/bin/vault server -config=/etc/vault.d/vault.hcl
+ExecReload=/bin/kill --signal HUP $MAINPID
+StandardOutput=/logs/vault/output.log
+StandardError=/logs/vault/error.log
+KillMode=process
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+StartLimitIntervalSec=60
+StartLimitBurst=3
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+
+
+#CREATE LOGS DIRECTORY, CHANGE OWNER
+
+sudo mkdir /etc/vault.d
+sudo chown -R vault:vault /etc/vault.d
+sudo mkdir /vault-data
+sudo chown -R vault:vault /vault-data
+sudo mkdir -p /logs/vault/
+
+#CREATE HCL FILE
+
+sudo vi /etc/vault.d/vault.hcl
+
+
+
+listener "tcp" {
+  address     = "0.0.0.0:8200"
+  tls_disable = 1
+}
+
+
+
+storage "file" {
+  path = "/vault-data"
+}
+
+ui = true
+
+##AND ENABLE SYSTEMCTL
+
+sudo systemctl enable vault
+sudo systemctl start vault
+sudo systemctl status vault
+
+#CHECK UI
+http://<<IP_ADDRESS>>:8200/ui
+
+#after that we must unseal it because by default Vault sealed
