@@ -70,8 +70,7 @@ Configuration file here:
 `username           v-token-readonly-6iRIcGv8tLpu816oblPY-1556567086`
 
  
- 
- ### We can check it 
+ ### Take username and password and write here with db_name:
  
  > psql -h database-1.xxxxxxxxxxxxxxxxx.rds.database \
     -d test_db \
